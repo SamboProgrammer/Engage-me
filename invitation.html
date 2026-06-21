@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>លិខិតអញ្ជើញភ្ជាប់ពាក្យកិត្តិយសដ៏ឧត្តុង្គឧត្តម</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Moul&family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --royal-burgundy: #3A050B;
+    --gold-primary: #D4AF37;
+    --gold-foil: linear-gradient(135deg, #B38728 0%, #FBF5B7 25%, #DAA520 50%, #FBF5B7 75%, #AA7C11 100%);
+    --gold-glow: rgba(212, 175, 55, 0.35);
+    --white-shimmer: rgba(255, 255, 255, 0.92);
+}
+
+* { box-sizing: border-box; }
+
+a, button, .meta-card, .timeline-item {
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Kantumruy Pro', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0D0204;
+    overflow-x: hidden;
+}
+
+.fullscreen-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    background: linear-gradient(160deg, #1A0408 0%, #0D0204 55%, #1A0408 100%);
+}
+
+.fullscreen-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.05);
+    filter: brightness(0.35) contrast(1.1) blur(2px);
+}
+
+.fullscreen-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(58, 5, 11, 0.15) 0%, rgba(13, 2, 4, 0.92) 100%);
+}
+
+.luxury-master-card {
+    position: relative;
+    z-index: 5;
+    background: rgba(18, 3, 5, 0.7);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+    max-width: 760px;
+    width: 92%;
+    margin: 40px auto;
+    border-radius: 40px;
+    padding: 70px 60px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 50px 120px rgba(0, 0, 0, 0.8),
+                inset 0 1px 2px rgba(255, 255, 255, 0.15);
+    text-align: center;
+    opacity: 0;
+    animation: cardEntrance 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.luxury-master-card::before {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border: 1px solid rgba(214, 175, 55, 0.4);
+    border-radius: 26px;
+    pointer-events: none;
+}
+
+.luxury-master-card::after {
+    content: '';
+    position: absolute;
+    inset: 24px;
+    border: 1px solid rgba(214, 175, 55, 0.15);
+    border-radius: 22px;
+    pointer-events: none;
+}
+
+.corner {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border-top: 2px solid var(--gold-primary);
+    border-left: 2px solid var(--gold-primary);
+    opacity: 0.6;
+    z-index: 6;
+}
+.corner.tl { top: 30px; left: 30px; }
+.corner.tr { top: 30px; right: 30px; transform: rotate(90deg); }
+.corner.bl { bottom: 30px; left: 30px; transform: rotate(-90deg); }
+.corner.br { bottom: 30px; right: 30px; transform: rotate(180deg); }
+
+.header-ornament {
+    font-size: 15px;
+    background: var(--gold-foil);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 10px;
+    margin-bottom: 15px;
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.header-accent {
+    font-family: 'Moul', serif;
+    font-size: 44px;
+    margin: 0 0 6px 0;
+    font-weight: normal;
+    background: var(--gold-foil);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+}
+
+.sub-accent {
+    font-family: 'Battambang', serif;
+    font-size: 19px;
+    color: #FFFFFF;
+    font-weight: bold;
+    letter-spacing: 8px;
+    margin-bottom: 45px;
+    text-transform: uppercase;
+    opacity: 0.95;
+}
+
+.invitation-message {
+    font-size: 16.5px;
+    line-height: 2.7;
+    color: var(--white-shimmer);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+.couple-names-wrapper {
+    margin: 40px auto 0;
+    padding: 25px 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.couple-names-wrapper::before,
+.couple-names-wrapper::after {
+    content: '';
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(214, 175, 55, 0.6), transparent);
+}
+.couple-names-wrapper::before { top: 0; }
+.couple-names-wrapper::after { bottom: 0; }
+
+.couple-block { flex: 1; }
+
+.couple-h2 {
+    font-family: 'Battambang', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.role-tag {
+    font-family: 'Kantumruy Pro', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gold-primary);
+    display: block;
+    margin-bottom: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.ampersand-divider {
+    font-size: 18px;
+    background: var(--gold-foil);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+    padding: 0 20px;
+    white-space: nowrap;
+}
+
+.well-wish {
+    font-size: 15px;
+    color: #CFC5BC;
+    line-height: 2.1;
+    margin: 30px 0 10px;
+    font-style: italic;
+}
+
+.meta-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 45px 0;
+}
+
+.meta-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(214, 175, 55, 0.2);
+    padding: 24px 12px;
+    border-radius: 20px;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.05);
+}
+
+.meta-card:hover {
+    background: rgba(214, 175, 55, 0.06);
+    border-color: rgba(214, 175, 55, 0.5);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(214,175,55,0.1);
+    transform: translateY(-3px);
+}
+
+.meta-card .icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
+
+.meta-card .label {
+    font-size: 11.5px;
+    color: #CFC5BC;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.meta-card .value {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    line-height: 1.5;
+}
+
+.schedule-section {
+    margin: 45px 0;
+    text-align: left;
+}
+
+.schedule-title {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--gold-primary);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 28px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(214,175,55,0.05), rgba(214,175,55,0.5), rgba(214,175,55,0.05));
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 22px;
+}
+
+.timeline-item:last-child { margin-bottom: 0; }
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 4px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--gold-primary);
+    box-shadow: 0 0 8px var(--gold-glow);
+}
+
+.timeline-item:hover { transform: translateX(4px); }
+
+.timeline-time {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold-primary);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.timeline-desc {
+    font-size: 14.5px;
+    color: var(--white-shimmer);
+    line-height: 1.6;
+}
+
+.countdown-container {
+    background: rgba(214, 175, 55, 0.03);
+    border: 1px solid rgba(214, 175, 55, 0.25);
+    border-radius: 20px;
+    padding: 24px 20px;
+    margin-bottom: 45px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.countdown-title {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--gold-primary);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.countdown-display {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.time-block {
+    font-size: 26px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    min-width: 50px;
+}
+
+.time-block span {
+    display: block;
+    font-size: 11px;
+    color: #CFC5BC;
+    font-weight: 400;
+    margin-top: 6px;
+    letter-spacing: 1px;
+}
+
+.action-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 45px;
+}
+
+.btn {
+    flex: 1;
+    max-width: 210px;
+    padding: 16px 28px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: none;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background: var(--gold-foil);
+    color: #3A050B;
+    box-shadow: 0 0 20px var(--gold-glow);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 35px rgba(214, 175, 55, 0.6);
+    transform: translateY(-4px);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: #FFFFFF;
+    border: 1px solid rgba(214, 175, 55, 0.4);
+}
+
+.btn-secondary:hover {
+    border-color: rgba(214, 175, 55, 0.9);
+    background: rgba(214, 175, 55, 0.08);
+    box-shadow: 0 0 20px rgba(214, 175, 55, 0.2);
+    transform: translateY(-4px);
+}
+
+.signature-block {
+    font-size: 14.5px;
+    color: #CFC5BC;
+    line-height: 1.9;
+}
+
+.signature-title {
+    background: var(--gold-foil);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: 3px;
+    display: block;
+}
+
+.footer-ornament {
+    margin-top: 25px;
+    color: var(--gold-primary);
+    opacity: 0.6;
+    letter-spacing: 8px;
+    font-size: 12px;
+}
+
+@keyframes cardEntrance {
+    0% { opacity: 0; transform: translateY(40px) scale(0.98); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .luxury-master-card { animation: none; opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .luxury-master-card { padding: 50px 28px; width: 94%; border-radius: 32px; }
+    .header-accent { font-size: 36px; }
+    .couple-h2 { font-size: 24px; }
+    .meta-info-grid { gap: 12px; }
+    .corner { width: 22px; height: 22px; top: 18px !important; bottom: 18px !important; left: 18px !important; right: 18px !important; }
+}
+
+@media (max-width: 540px) {
+    .couple-names-wrapper { flex-direction: column; gap: 16px; }
+    .ampersand-divider { padding: 4px 0; }
+    .meta-info-grid { grid-template-columns: 1fr; gap: 14px; margin: 35px 0; }
+    .action-row { flex-direction: column; align-items: center; gap: 14px; }
+    .btn { width: 100%; max-width: 100%; }
+    .countdown-display { gap: 18px; }
+    .timeline-desc { font-size: 13.5px; }
+}
+</style>
+</head>
+<body>
+
+<div class="fullscreen-bg">
+    <img src="couple.jpg" alt="វង់ សំបូរ & ឈៀង ស្រីលៀប" class="fullscreen-bg-img"
+         onerror="this.style.display='none'">
+</div>
+
+<div class="luxury-master-card">
+    <span class="corner tl" aria-hidden="true"></span>
+    <span class="corner tr" aria-hidden="true"></span>
+    <span class="corner bl" aria-hidden="true"></span>
+    <span class="corner br" aria-hidden="true"></span>
+
+    <div class="header-section">
+        <span class="header-ornament">✧ ❁ ✧</span>
+        <h1 class="header-accent">សំបុត្រអញ្ជើញ</h1>
+        <div class="sub-accent">ពិធីភ្ជាប់ពាក្យ</div>
+    </div>
+
+    <div class="invitation-message">
+        សូមគោរពអញ្ជើញ លោក លោកស្រី និងក្រុមគ្រួសារ<br>
+        អញ្ជើញចូលរួមជាភ្ញៀវកិត្តិយស ក្នុងពិធីភ្ជាប់ពាក្យរបស់
+
+        <div class="couple-names-wrapper">
+            <div class="couple-block">
+                <span class="role-tag">កូនប្រុស</span>
+                <h2 class="couple-h2">វង់ សំបូរ</h2>
+            </div>
+            <div class="ampersand-divider">❁ និង ❁</div>
+            <div class="couple-block">
+                <span class="role-tag">កូនស្រី</span>
+                <h2 class="couple-h2">ឈៀង ស្រីលៀប</h2>
+            </div>
+        </div>
+
+        <p class="well-wish">
+            វត្តមានដ៏ខ្ពង់ខ្ពស់របស់អស់លោកអ្នក<br>
+            គឺជាកិត្តិយសដ៏ឧត្តុង្គឧត្តមសម្រាប់គ្រួសារយើងខ្ញុំ។
+        </p>
+    </div>
+
+    <div class="meta-info-grid">
+        <div class="meta-card">
+            <div class="icon">📅</div>
+            <div class="label">កាលបរិច្ឆេទ</div>
+            <div class="value">០៩ កក្កដា ២០២៦</div>
+        </div>
+        <div class="meta-card">
+            <div class="icon">🕘</div>
+            <div class="label">ពេលវេលា</div>
+            <div class="value">ម៉ោង ០៨:០០ ព្រឹក</div>
+        </div>
+        <div class="meta-card">
+            <div class="icon">📍</div>
+            <div class="label">ទីតាំងពិធី</div>
+            <div class="value">គេហដ្ឋានខាងស្រី<br>ភូមិរកាក្រៅ ក្រុងដូនកែវ<br>ខេត្តតាកែវ</div>
+        </div>
+    </div>
+
+    <div class="schedule-section">
+        <div class="schedule-title">កម្មវិធីពិធីភ្ជាប់ពាក្យជាលម្អិត</div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-time">ម៉ោង ០៧:៣០ ព្រឹក</div>
+                <div class="timeline-desc">ជួបជុំភ្ញៀវកិត្តិយស និងរៀបចំក្បួនជំនូនចែចូវ</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">ម៉ោង ០៨:០០ ព្រឹក</div>
+                <div class="timeline-desc">ពិធីកាត់ខ្សែបូ បើកជំនូន និងពិភាក្សាភ្ជាប់ពាក្យផ្លូវការ</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">ម៉ោង ០៩:៣០ ព្រឹក</div>
+                <div class="timeline-desc">ពិធីបំពាក់ចិញ្ចៀនភ្ជាប់ពាក្យ និងថតរូបអនុស្សាវរីយ៍រួមគ្នា</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">ម៉ោង ១១:៣០ ថ្ងៃត្រង់</div>
+                <div class="timeline-desc">អញ្ជើញភ្ញៀវកិត្តិយសពិសាអាហារសាមគ្គីជោគជ័យ</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="countdown-container">
+        <div class="countdown-title">រាប់ថយក្រោយចូលរួមកម្មវិធី</div>
+        <div class="countdown-display" id="countdown">
+            <div class="time-block" id="cd-days">00<span>ថ្ងៃ</span></div>
+            <div class="time-block" id="cd-hours">00<span>ម៉ោង</span></div>
+            <div class="time-block" id="cd-mins">00<span>នាទី</span></div>
+            <div class="time-block" id="cd-secs">00<span>វិនាទី</span></div>
+        </div>
+    </div>
+
+    <div class="action-row">
+        <a href="https://www.google.com/maps?q=11.1230744,104.6962958" target="_blank" class="btn btn-secondary">📍 ផែនទីទីតាំងពិធី</a>
+        <a href="#" class="btn btn-primary">✍️ បញ្ជាក់ការចូលរួម (RSVP)</a>
+    </div>
+
+    <div class="signature-block">
+        <span class="signature-title">ដោយក្តីគោរពដ៏ខ្ពង់ខ្ពស់បំផុត</span>
+        គ្រួសារទាំងសងខាងសំពះអញ្ជើញ
+        <div class="footer-ornament">✧ ❁ ✧</div>
+    </div>
+</div>
+
+<script>
+// កាលបរិច្ឆេទពិធី៖ ០៩ កក្កដា ២០២៦, ម៉ោង ០៨:០០ ព្រឹក
+const targetDate = new Date(2026, 6, 9, 8, 0, 0).getTime();
+
+function updateCountdown() {
+    const now = Date.now();
+    const diff = targetDate - now;
+
+    const els = {
+        days: document.getElementById('cd-days'),
+        hours: document.getElementById('cd-hours'),
+        mins: document.getElementById('cd-mins'),
+        secs: document.getElementById('cd-secs')
+    };
+
+    if (diff <= 0) {
+        els.days.firstChild.textContent = '00';
+        els.hours.firstChild.textContent = '00';
+        els.mins.firstChild.textContent = '00';
+        els.secs.firstChild.textContent = '00';
+        return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    els.days.firstChild.textContent = String(days).padStart(2, '0');
+    els.hours.firstChild.textContent = String(hours).padStart(2, '0');
+    els.mins.firstChild.textContent = String(mins).padStart(2, '0');
+    els.secs.firstChild.textContent = String(secs).padStart(2, '0');
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
